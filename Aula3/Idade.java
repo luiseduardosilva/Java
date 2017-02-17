@@ -1,16 +1,22 @@
 import java.util.Scanner;
 
-public class Idade {
+public class idade {
 	public static void main(String[] args){
-		int anoNas = 0;
-		int anoAtu = 0;
+		int 	anoNas = 0;
+		int 	anoAtu = 0;
+		String 	nome;
+	
+		Scanner scan = new Scanner(System.in);
 		
-		Scanner idades = new Scanner(System.in);
-		System.out.println("Ano em que nasceu =>");
-		anoNas = idades.nextInt();
-		System.out.println("Ano Atual =>");
-		anoAtu = idades.nextInt();
+		System.out.format("Infome seu nome: ");
+		nome = scan.nextLine();
 		
-		System.out.println(anoAtu - anoNas);
+		System.out.format("Ano em que nasceu: ");
+		anoNas = scan.nextInt();
+		
+		System.out.format("Ano Atual: ");
+		anoAtu = scan.nextInt();
+		System.out.format("---\nNome: %s\nIdade: %d", nome, (anoAtu - anoNas));
+		scan.close();
 	}
 }
