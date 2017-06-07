@@ -6,24 +6,27 @@ import java.util.Scanner;
 public class Produto implements Serializable{
 		
 	private static final long serialVersionUID = 1L;
-	Arquivo arquivo = new Arquivo();
 	private String codigo,
 				   nome, 
 				   descricao,
-				   valorVenda,
-				   valorCusto,
 				   promocao;
 	
-	Scanner scan = new Scanner(System.in);
+	private float valorVenda,
+				  valorCusto;
 	
-	public Produto(String codigo, String nome, String descricao, String valorVenda, String valorCusto, String promocao) {
+	private boolean boolPromocao;
+	
+	
+	
+	public Produto(String codigo, String nome, String descricao, float valorVenda, float valorCusto, String promocao, boolean boolPromocao  ) {
 		super();
-		this.codigo = codigo;
-		this.nome = nome;
-		this.descricao = descricao;
-		this.valorVenda = valorVenda;
-		this.valorCusto = valorCusto;
-		this.promocao = promocao;
+		this.codigo 		= codigo;
+		this.nome 			= nome;
+		this.descricao		= descricao;
+		this.valorVenda 	= valorVenda;
+		this.valorCusto		= valorCusto;
+		this.promocao 		= promocao;
+		this.boolPromocao 	= boolPromocao;
 	}
 	
 	
@@ -62,22 +65,22 @@ public class Produto implements Serializable{
 	}
 
 
-	public String getValorVenda() {
+	public float getValorVenda() {
 		return valorVenda;
 	}
 
 
-	public void setValorVenda(String valorVenda) {
+	public void setValorVenda(float valorVenda) {
 		this.valorVenda = valorVenda;
 	}
 
 
-	public String getValorCusto() {
+	public float getValorCusto() {
 		return valorCusto;
 	}
 
 
-	public void setValorCusto(String valorCusto) {
+	public void setValorCusto(float valorCusto) {
 		this.valorCusto = valorCusto;
 	}
 
@@ -92,21 +95,32 @@ public class Produto implements Serializable{
 	}
 
 
+	public boolean isBoolPromocao() {
+		return boolPromocao;
+	}
+
+
+	public void setBoolPromocao(boolean boolPromocao) {
+		this.boolPromocao = boolPromocao;
+	}
+
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-
+	// CADASTRAR PRODUTO
 	public void cadastrarProduto(){
 		
+		Arquivo arquivo = new Arquivo();
+		Scanner scan = new Scanner(System.in);
 		String codigo,
 		   nome, 
 		   descricao,
-		   valorVenda,
-		   valorCusto,
 		   promocao;
-		
-		
+		float valorVenda,
+		   valorCusto;
+		boolean boolPromocao = true;
 		
 		System.out.println("Digite o codigo do produto");
 		codigo = scan.nextLine();
@@ -118,17 +132,48 @@ public class Produto implements Serializable{
 		descricao = scan.nextLine();
 		
 		System.out.println("Digite o valor de venda do produto");
-		valorVenda = scan.nextLine();
+		valorVenda = scan.nextFloat();
 		
 		System.out.println("Digite o valor de custo do produto");
-		valorCusto = scan.nextLine();
+		valorCusto = scan.nextFloat();
 		
-		System.out.println("Produto em promoção [digite apenas sim ou não]");
+		//System.out.println("Produto em promoção [digite apenas sim ou não]");
 		promocao = scan.nextLine();
-		
-		
-		Produto produto = new Produto(codigo, nome, descricao, valorVenda, valorCusto, promocao);
+		// SÓ ACEITA SIM OU NÃO
+		while(!promocao.equalsIgnoreCase("sim") && !promocao.equals("nao")){
+			System.out.println("Produto em promoção [digite apenas sim ou não]");
+			promocao = scan.nextLine();
+		}
+		if (promocao.equalsIgnoreCase("sim")){
+			boolPromocao = true;
+		}
+		if(promocao.equalsIgnoreCase("nao")){
+			boolPromocao = false;
+		}
+
+		Produto produto = new Produto(codigo, nome, descricao, valorVenda, valorCusto, promocao, boolPromocao);
 		arquivo.salvar(produto, nome);
 	}
 	
+	//PRODUCAR PRODUTO
+	public void procurarProduto(){
+		
+		Arquivo arquivo = new Arquivo();
+		Produto produto = new Produto();
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("Nome do Produto: ");
+		
+		nome = scan.nextLine();
+		arquivo.lerObjeto(nome);
+		produto = (Produto)arquivo.lerObjeto(nome);
+		
+		System.out.println("--------------------");
+		System.out.println("Nome: "		 		+ produto.getNome());
+		System.out.println("Código:	" 			+ produto.getCodigo());
+		System.out.println("Descrição: " 		+ produto.getDescricao());
+		System.out.println("Promoção?: "		+ produto.getPromocao());
+		System.out.println("Valor de Custo: " 	+ produto.getValorCusto());
+		System.out.println("Valor de Venda	" 	+ produto.getValorVenda());
+	}
 }
