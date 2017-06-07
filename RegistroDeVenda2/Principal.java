@@ -9,8 +9,9 @@ public class Principal {
 	public static void main(String[] args){
 		
 		Menu menu = new Menu();
-		Arquivo arquivo = new Arquivo();
-		Produto produto = new Produto();
+		Arquivo 	arquivo 	= new Arquivo();
+		Produto 	produto 	= new Produto();
+		Vendedor 	vendedor 	= new Vendedor(null, null, null);
 		scan = new Scanner(System.in);
 		boolean loop = true;
 		String opcao;
@@ -23,18 +24,23 @@ public class Principal {
 			
 			switch(opcao){
 				case "1":
+					//CADASTRAR PRODUTO
 					produto.cadastrarProduto();
 					break;
-					
 				case "2":
-					System.out.println("Nome do arquivo quer deseja ler: ");
-					String nome = scan.nextLine();
-					arquivo.lerObjeto(nome);
-					produto = (Produto)arquivo.lerObjeto(nome);
-					
-					//dados
-					//System.out.println("--------------------");
-					System.out.println(produto.getNome());					
+					//CADASTRAR VENDEDOR
+					vendedor.cadastrarVendedor();
+					break;
+				case "3":
+					//PROCURAR PRODUTO
+					produto.procurarProduto();
+					break;
+				case "4":
+					//PRODUCRAR VENDEDOR
+					vendedor.procurarVendedor();
+					break;
+				case "0":
+					loop = false;
 					break;
 				default:
 					System.out.println("Digite uma opção valida");
