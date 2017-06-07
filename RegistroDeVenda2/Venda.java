@@ -13,7 +13,7 @@ public class Venda implements Serializable{
 	// EFETUAR DESCONTO
 	public void efetuarDesconto(int descontoProduto) {
 		
-		float valorDaVenda = produto.getValorVenda();
+		float valorDaVenda = (produto.getValorVenda());
 		float desconto = (valorDaVenda * descontoProduto) / 100;
 		float valorFinal = (valorDaVenda - desconto);
 		
@@ -48,9 +48,9 @@ public class Venda implements Serializable{
 		System.out.format("Nome: %s\nCódigo: %s\n", vendedor.getNome(), vendedor.getCodigo());
 		
 		// COMISSÂO DO VENDEDOR
-		System.out.format("Comissão: %f", calcularComissao(produto.getValorVenda(), this.getQuantidadeItens(), vendedor.getComissao(), produto.isPromocao()));
+		System.out.format("Comissão: %f", calcularComissao(produto.getValorVenda(), this.getQuantidadeItens(), vendedor.getComissao(), produto.isBoolPromocao()));
 		
-		/* QUANDITADE DE ITENS
+		/* QUANTIDADE DE ITENS
 		 * CÓDIGO
 		 * DESCRIÇÃO DO CÓDIGO
 		 * VALOR DA VENDA
@@ -58,7 +58,7 @@ public class Venda implements Serializable{
 		System.out.format("\nQuantidade de Itens: %s\nCodigo: %s\nDescrição: %s\nValor: %f\n",this.getQuantidadeItens(), produto.getCodigo(), produto.getDescricao() , produto.getValorVenda());
 		
 		// PROMOÇÃO? & VALOR DO DESCONTO
-		if(produto.isPromocao()){
+		if(produto.isBoolPromocao()){
 			System.out.println("Promocão Ativada!");
 		}else{
 			System.out.println("Sem Promoção");
@@ -72,10 +72,10 @@ public class Venda implements Serializable{
 	}
 	
 	public Venda(Produto produto, Vendedor vendedor, int quantidadeItens) {
-		this.produto = produto;
-		this.vendedor = vendedor;
-		this.quantidadeItens = quantidadeItens;
-}
+		this.produto 			= produto;
+		this.vendedor			= vendedor;
+		this.quantidadeItens	= quantidadeItens;
+	}
 		
 	public Produto getProduto() {
 		return produto;
@@ -117,3 +117,7 @@ public class Venda implements Serializable{
 		this.valor = valor;
 	}
 }
+
+
+
+
